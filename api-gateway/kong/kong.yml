@@ -1,0 +1,25 @@
+_format_version: "1.1"
+_transform: true
+
+services:
+- host: mockbin.org
+  name: example_service
+  port: 80
+  protocol: http
+  routes:
+  - name: example_route
+    paths:
+      - /mock
+    strip_path: true
+- name: service_1
+  url: http://sample_1:8080
+  routes:
+  - name: sample-1-route
+    paths:
+      - /service_1
+- name: service_2
+  url: http://sample_2:8080
+  routes:
+  - name: sample-2-route
+    paths:
+      - /service_2
