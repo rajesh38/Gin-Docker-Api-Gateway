@@ -1,4 +1,4 @@
-module content-delivery-system/sample_1
+module content-delivery-system/service_1
 
 go 1.17
 
