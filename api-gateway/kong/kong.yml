@@ -12,14 +12,14 @@ services:
       - /mock
     strip_path: true
 - name: service_1
-  url: http://sample_1:8080
+  url: http://service_1:8080
   routes:
-  - name: sample-1-route
+  - name: service-1-route
     paths:
       - /service_1
 - name: service_2
-  url: http://sample_2:8080
+  url: http://service_2:8080
   routes:
-  - name: sample-2-route
+  - name: service-2-route
     paths:
       - /service_2
