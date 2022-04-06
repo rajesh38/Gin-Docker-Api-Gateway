@@ -1,10 +1,10 @@
 FROM golang:1.17.5-alpine
 
-WORKDIR /app
-RUN go mod init content-delivery-system/service_1
-RUN go mod tidy
-RUN go get github.com/gin-gonic/gin
-COPY ./assets ./assets
-COPY ./main.go .
+WORKDIR /app/src
+COPY ./src/go.mod ./
+COPY ./src/go.sum ./
+RUN go mod download
+COPY ./assets ../assets
+COPY ./src/* ./
 
 CMD ["go", "run", "."]

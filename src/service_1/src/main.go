@@ -44,9 +44,8 @@ func main() {
 	})
 	router.GET("/download", func(c *gin.Context) {
 		fileName := "file.png"
-		targetPath := filepath.Join("./assets/", fileName)
+		targetPath := filepath.Join("../assets/", fileName)
 		fmt.Println("targetPath = " + targetPath)
-		// Seems this headers needed for some browsers (for example without this headers Chrome will download files as txt)
 		c.Header("Content-Description", "File Transfer")
 		c.Header("Content-Transfer-Encoding", "binary")
 		c.Header("Content-Disposition", "attachment; filename="+fileName)
