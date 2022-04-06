@@ -4,6 +4,7 @@ WORKDIR /app
 RUN go mod init content-delivery-system/service_1
 RUN go mod tidy
 RUN go get github.com/gin-gonic/gin
+COPY ./assets ./assets
 COPY ./main.go .
 
 CMD ["go", "run", "."]

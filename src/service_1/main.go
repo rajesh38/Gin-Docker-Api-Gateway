@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"path/filepath"
 
 	"github.com/gin-gonic/gin"
 )
@@ -40,6 +41,17 @@ func main() {
 		}
 		fmt.Println(string(responseData))
 		c.JSON(200, string(responseData))
+	})
+	router.GET("/download", func(c *gin.Context) {
+		fileName := "file.png"
+		targetPath := filepath.Join("./assets/", fileName)
+		fmt.Println("targetPath = " + targetPath)
+		// Seems this headers needed for some browsers (for example without this headers Chrome will download files as txt)
+		c.Header("Content-Description", "File Transfer")
+		c.Header("Content-Transfer-Encoding", "binary")
+		c.Header("Content-Disposition", "attachment; filename="+fileName)
+		c.Header("Content-Type", "image/png")
+		c.File(targetPath)
 	})
 	router.Run()
 }
