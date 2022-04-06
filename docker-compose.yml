@@ -4,8 +4,8 @@ services:
     build: ./src/service_1
     networks:
       - gin-app
-    ports: 
-      - "8081:8080"
+    # ports: 
+    #   - "8081:8080"
   service_2:
     build: ./src/service_2
     networks:
