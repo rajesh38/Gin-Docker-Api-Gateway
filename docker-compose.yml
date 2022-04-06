@@ -2,14 +2,20 @@ version: '3'
 services:
   service_1:
     build: ./src/service_1
+    networks:
+      - gin-app
     # ports: 
     #   - "8081:8080"
   service_2:
     build: ./src/service_2
+    networks:
+      - gin-app
     # ports: 
     #   - "8082:8080"
   kong:
     build: ./api-gateway/kong
+    networks:
+      - gin-app
     ports:
       - 8000:8000
       - 8443:8443
@@ -19,3 +25,27 @@ services:
       - 8445:8445
       - 8003:8003
       - 8004:8004
+  tyk-gateway:
+    image: docker.tyk.io/tyk-gateway/tyk-gateway:v3.2.1
+    ports:
+      - 8080:8080
+    networks:
+      - gin-app
+    volumes:
+      - ./api-gateway/tyk-gateway-docker/tyk.standalone.conf:/opt/tyk-gateway/tyk.conf
+      - ./api-gateway/tyk-gateway-docker/apps:/opt/tyk-gateway/apps
+      - ./api-gateway/tyk-gateway-docker/middleware:/opt/tyk-gateway/middleware
+      - ./api-gateway/tyk-gateway-docker/certs:/opt/tyk-gateway/certs
+    environment:
+      - TYK_GW_SECRET=foo
+    depends_on:
+      - tyk-redis
+  tyk-redis:
+    image: redis:5.0-alpine
+    networks:
+      - gin-app
+    ports:
+      - 6379:6379
+
+networks:
+  gin-app:
